@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ public class CategoryConfiguration : BaseConfiguration<Category>
 
         builder.Property(a => a.Name)
             .IsRequired();
+
 
 
         base.Configure(builder);

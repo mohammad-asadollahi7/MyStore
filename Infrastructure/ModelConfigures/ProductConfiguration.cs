@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,9 @@ public class ProductConfiguration : BaseConfiguration<Product>
 
         builder.HasOne(a => a.Category)
             .WithMany(c => c.Products)
-            .HasForeignKey(a => a.CategoryId);
+            .HasForeignKey(a => a.CategoryId)
+            .OnDelete(DeleteBehavior.SetNull);
+
 
 
         base.Configure(builder);

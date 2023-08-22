@@ -1,0 +1,63 @@
+﻿
+
+@*
+
+
+
+<div class="text-center border-2 mt-2">
+    <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+            <a class="btn btn-primary" asp-area="" asp-controller="Category" asp-action="Create">Create</a>
+        </li>
+    </ul>
+</div>
+*@
+
+@model List<Domain.Entities.Category>
+<H1 class="text-center">Welcome to the Catagory Section</H1>
+
+
+<a class="btn btn-primary my-2" asp-action="Create">Create</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.CategoryId</td>
+                <td>@category.Name</td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Delete" asp-route-categoryId="@category.CategoryId">Delete</a>
+
+                    <a class="btn btn-danger" asp-action="Edit" asp-route-categoryId="@category.CategoryId">Edit</a>
+
+                </td>
+                
+              @*  <td>
+                    @if (student.Courses != null)
+                    {
+                        @foreach (var course in @student.Courses)
+                        {
+                            @course.Name;
+                            <br />
+                        }
+                    }
+                    else
+                    {
+                        @null;
+                    }
+
+                </td>*@
+
+            </tr>
+        }
+    </tbody>
+
+
+</table>
