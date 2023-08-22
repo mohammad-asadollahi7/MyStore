@@ -1,82 +1,61 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Application.Dtos;
+using Application.IServices;
+using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace Product.UI.Controllers;
 
 public class ProductController : Controller
 {
-    // GET: ProductController
+    private readonly IProductService _productService;
+    public ProductController(IProductService productService)
+    {
+        _productService = productService;
+    }
+
     public ActionResult Index()
     {
-        return View();
+        var products = _productService.GetAll();
+        return View(products);
     }
 
-    // GET: ProductController/Details/5
-    public ActionResult Details(int id)
-    {
-        return View();
-    }
 
-    // GET: ProductController/Create
     public ActionResult Create()
     {
         return View();
     }
 
-    // POST: ProductController/Create
+
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(IFormCollection collection)
+    public ActionResult Create(Product product)
     {
-        try
-        {
-            return RedirectToAction(nameof(Index));
-        }
-        catch
-        {
-            return View();
-        }
+        _productService.Create(product);
+        return RedirectToAction(nameof(Index));
     }
 
-    // GET: ProductController/Edit/5
-    public ActionResult Edit(int id)
+    [HttpGet]
+    public ActionResult Edit(int productId)
     {
-        return View();
+        var product = _productService.GetById(productId);
+        return View(product);
     }
 
-    // POST: ProductController/Edit/5
+
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
+    public ActionResult Edit(Product product)
     {
-        try
-        {
-            return RedirectToAction(nameof(Index));
-        }
-        catch
-        {
-            return View();
-        }
+        _productService.Edit(product);
+        return RedirectToAction(nameof(Index));
     }
 
-    // GET: ProductController/Delete/5
-    public ActionResult Delete(int id)
-    {
-        return View();
-    }
 
-    // POST: ProductController/Delete/5
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult Delete(int id, IFormCollection collection)
+    public ActionResult Delete(int productId)
     {
-        try
-        {
-            return RedirectToAction(nameof(Index));
-        }
-        catch
-        {
-            return View();
-        }
+        _productService.Delete(productId);
+        return RedirectToAction(nameof(Index));
     }
 }

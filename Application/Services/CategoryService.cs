@@ -7,9 +7,9 @@ namespace Application.Services;
 
 public class CategoryService : ICategoryService
 {
-    private readonly ICategoryRepository _categoryRepository;
+    private readonly IProductRepository _categoryRepository;
 
-    public CategoryService(ICategoryRepository categoryRepository)
+    public CategoryService(IProductRepository categoryRepository)
     {
         _categoryRepository = categoryRepository;
     }

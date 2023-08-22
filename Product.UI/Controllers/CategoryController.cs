@@ -15,19 +15,11 @@ public class CategoryController : Controller
         _categoryService = categoryService;
     }
 
-    // GET: CategoryController
     public ActionResult Index()
     {
         var categories =_categoryService.GetAll();
         return View(categories);
     }
-
-    // GET: CategoryController/Details/5
-    public ActionResult Details(int id)
-    {
-        return View();
-    }
-
 
  
     public ActionResult Create()
@@ -67,18 +59,4 @@ public class CategoryController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    // POST: CategoryController/Delete/5
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult Delete(int id, IFormCollection collection)
-    {
-        try
-        {
-            return RedirectToAction(nameof(Index));
-        }
-        catch
-        {
-            return View();
-        }
-    }
 }
