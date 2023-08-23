@@ -23,10 +23,9 @@ public class ProductController : Controller
     }
 
     [HttpGet]
-    public IActionResult Create([FromServices] ICategoryService categoryService)
+    public IActionResult Create()
     {
-        var categories = categoryService.GetAll();
-        return View(categories); 
+        return View(); 
     }
 
     [HttpPost]

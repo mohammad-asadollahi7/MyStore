@@ -8,6 +8,7 @@ public interface ICategoryService
 {
     void Create(CategoryDto categoryDto);
     void Delete(int categoryId);
+    IEnumerable<Category> GetAllWithProducts();
     IEnumerable<Category> GetAll();
     Category GetById(int id);
     void Edit(Category category);

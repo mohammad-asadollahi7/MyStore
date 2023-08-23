@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Domain.Entities.Category>
+﻿
 
 @{
     ViewData["Title"] = "Create";
@@ -23,12 +23,8 @@
                 <input type="text" placeholder="Manufacture date" name="ManufactureDate" class="form-control" />
             </div>
             <div class="mb-1">
-                <select name="CategoryId" class="form-select">
+                <select id="CategoryId" name="CategoryId" class="form-select">
                     <option selected class="form-control" disabled hidden>Select category</option>
-                    @foreach (var category in Model)
-                    {
-                        <option class="form-control"  value="@category.CategoryId">@category.Name</option>
-                    }
                 </select>
             </div>
             <div class="form-group">
@@ -38,3 +34,6 @@
     </div>
 </div>
 
+@section Scripts{
+    <script src="~/js/CreateView.js"></script>
+}

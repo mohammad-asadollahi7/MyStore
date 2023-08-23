@@ -15,9 +15,9 @@ public class CategoryController : Controller
         _categoryService = categoryService;
     }
 
-    public ActionResult Index()
+    public IActionResult Index()
     {
-        var categories =_categoryService.GetAll();
+        var categories =_categoryService.GetAllWithProducts();
         return View(categories);
     }
 
@@ -30,7 +30,7 @@ public class CategoryController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(CategoryDto categoryDto)
+    public IActionResult Create(CategoryDto categoryDto)
     {
         if (ModelState.IsValid)
         {
@@ -41,7 +41,7 @@ public class CategoryController : Controller
     }
 
     [HttpGet]
-    public ActionResult Edit(int categoryId)
+    public IActionResult Edit(int categoryId)
     {
         var category =_categoryService.GetById(categoryId);
         return View(category);
@@ -50,7 +50,7 @@ public class CategoryController : Controller
   
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(Category category)
+    public IActionResult Edit(Category category)
     {
         if(ModelState.IsValid)
         {
@@ -61,7 +61,7 @@ public class CategoryController : Controller
     }
 
 
-    public ActionResult Delete(int categoryId)
+    public IActionResult Delete(int categoryId)
     {
         _categoryService.Delete(categoryId);
         return RedirectToAction(nameof(Index));

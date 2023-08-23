@@ -42,6 +42,16 @@ public class CategoryService : ICategoryService
 
     public IEnumerable<Category> GetAll()
     {
+        var categories = _categoryRepository.GetAll();
+
+        if (categories == null)
+            throw new NullReferenceException();
+
+        return categories.ToList();
+    }
+
+    public IEnumerable<Category> GetAllWithProducts()
+    {
         var categories = _categoryRepository.GetAll().Include(c => c.Products);
 
         if (categories == null)
