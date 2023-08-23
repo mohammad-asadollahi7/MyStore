@@ -6,4 +6,5 @@ namespace Application.IServices;
 
 public interface IProductService
 {
+    IEnumerable<Product> GetProducts();
 }

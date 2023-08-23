@@ -10,4 +10,24 @@ namespace Infrastructure.Repositories;
 
 public class ProductRepository : IProductRepository
 {
+    private readonly ApplicationContext _context;
+    private readonly IConfiguration _config;
+
+    public ProductRepository(ApplicationContext context, IConfiguration config)
+    {
+        _context = context;
+        _config = config;
+    }
+    public IEnumerable<Product> GetAll()
+    {
+        var query = string.Format(SqlQueries.GetAll, "Products");
+        using var conn = new SqlConnection(_config.GetConnectionString("Default"));
+        var products = conn.Query<Product>(query).AsQueryable();
+        return products;
+    }
+}
+
+public static class SqlQueries
+{
+    public static string GetAll { get; set; } = "SELECT p.ProductId, p.Name, p.Price, p.ManufactureDate, p.CategoryId FROM {0} p";
 }
