@@ -1,20 +1,23 @@
 ﻿using Application.Dtos;
+using Application.Exceptions;
 using Application.IServices;
 using Domain.Entities;
 using Domain.IRepositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services;
 
 public class CategoryService : ICategoryService
 {
-    private readonly IProductRepository _categoryRepository;
+    private readonly ICategoryRepository _categoryRepository;
 
-    public CategoryService(IProductRepository categoryRepository)
+    public CategoryService(ICategoryRepository categoryRepository)
     {
         _categoryRepository = categoryRepository;
     }
     public void Create(CategoryDto categoryDto)
     {
+
         var category = new Category()
         {
             Name = categoryDto.Name,
@@ -29,8 +32,7 @@ public class CategoryService : ICategoryService
         var isDeleted = _categoryRepository.Delete(categoryId);
 
         if (!isDeleted)
-            throw new NullReferenceException();
-
+            throw new ThereIsNotThisCategory();
     }
 
     public void Edit(Category category)
@@ -40,11 +42,12 @@ public class CategoryService : ICategoryService
 
     public IEnumerable<Category> GetAll()
     {
-        var categories = _categoryRepository.GetAll();
+        var categories = _categoryRepository.GetAll().Include(c => c.Products);
+
         if (categories == null)
             throw new NullReferenceException();
 
-        return categories;
+        return categories.ToList();
     }
 
     public Category GetById(int id)

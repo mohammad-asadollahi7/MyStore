@@ -29,7 +29,7 @@ public class ProductConfiguration : BaseConfiguration<Product>
         builder.HasOne(a => a.Category)
             .WithMany(c => c.Products)
             .HasForeignKey(a => a.CategoryId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.Cascade);
 
 
 

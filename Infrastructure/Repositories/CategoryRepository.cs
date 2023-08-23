@@ -19,12 +19,10 @@ public class CategoryRepository : ICategoryRepository
 
     public bool Delete(int categoryId)
     {
-        var category = _context.Categories.FirstOrDefault
-                                (c => c.CategoryId == categoryId);
+        var category = _context.Categories.Find(categoryId);
+
         if (category == null)
-        {
             return false;
-        }
 
         _context.Remove(category);
         _context.SaveChanges();
@@ -37,9 +35,9 @@ public class CategoryRepository : ICategoryRepository
         _context.SaveChanges();
     }
 
-    public IEnumerable<Category> GetAll()
+    public IQueryable<Category> GetAll()
     {
-        return _context.Categories.ToList();
+        return _context.Categories.AsQueryable();
     }
 
     public Category? GetById(int id)

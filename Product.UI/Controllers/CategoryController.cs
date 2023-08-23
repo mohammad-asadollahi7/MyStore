@@ -32,8 +32,12 @@ public class CategoryController : Controller
     [ValidateAntiForgeryToken]
     public ActionResult Create(CategoryDto categoryDto)
     {
-        _categoryService.Create(categoryDto);
-        return RedirectToAction(nameof(Index));
+        if (ModelState.IsValid)
+        {
+            _categoryService.Create(categoryDto);
+            return RedirectToAction(nameof(Index));
+        }
+        return View(nameof(Create), categoryDto);
     }
 
     [HttpGet]
@@ -48,8 +52,12 @@ public class CategoryController : Controller
     [ValidateAntiForgeryToken]
     public ActionResult Edit(Category category)
     {
-        _categoryService.Edit(category);
-        return RedirectToAction(nameof(Index));
+        if(ModelState.IsValid)
+        {
+            _categoryService.Edit(category);
+            return RedirectToAction(nameof(Index));
+        }
+        return View(nameof(Edit), category);
     }
 
 
