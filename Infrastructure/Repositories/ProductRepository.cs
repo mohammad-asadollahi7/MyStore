@@ -18,6 +18,13 @@ public class ProductRepository : IProductRepository
         _context = context;
         _config = config;
     }
+
+    public void Create(Product product)
+    {
+        _context.Products.Add(product);
+        _context.SaveChanges();
+    }
+
     public IEnumerable<Product> GetAll()
     {
         var query = string.Format(SqlQueries.GetAll, "Products");

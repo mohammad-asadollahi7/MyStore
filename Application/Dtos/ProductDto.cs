@@ -1,10 +1,11 @@
 ﻿
+using Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Entities;
-public class Product : BaseEntity
+namespace Application.Dtos;
+
+public class ProductDto
 {
-    public int ProductId { get; set; }
 
     [MinLength(3, ErrorMessage = "The minmum length is 3.")]
     [Required]
@@ -14,11 +15,9 @@ public class Product : BaseEntity
     public decimal Price { get; set; }
 
 
-    [MaxLength(10)]
-    [MinLength(10)]
+    [MaxLength(8)]
+    [MinLength(8)]
     public string ManufactureDate { get; set; }
 
     public int CategoryId { get; set; }
-    public Category Category { get; set; }
-
 }

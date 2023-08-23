@@ -1,5 +1,6 @@
 ﻿using Application.Dtos;
 using Application.Exceptions;
+using Application.Extensions;
 using Application.IServices;
 using Domain.Entities;
 using Domain.IRepositories;
@@ -14,6 +15,19 @@ public class ProductService : IProductService
     {
         _productRepository = productRepository;
     }
+
+    public void Create(ProductDto productDto)
+    {
+        var product = new Product()
+        {
+            Name = productDto.Name,
+            Price = productDto.Price,
+            ManufactureDate = productDto.ManufactureDate.DateConvertor(),   
+            CategoryId = productDto.CategoryId,
+        };
+        _productRepository.Create(product);
+    }
+
     public IEnumerable<Product> GetProducts()
     {
         var products = _productRepository.GetAll();
@@ -22,4 +36,6 @@ public class ProductService : IProductService
         
         return products;
     }
+
+    
 }

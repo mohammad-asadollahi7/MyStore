@@ -7,4 +7,5 @@ namespace Application.IServices;
 public interface IProductService
 {
     IEnumerable<Product> GetProducts();
+    void Create(ProductDto productDto);
 }
