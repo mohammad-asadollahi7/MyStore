@@ -1,11 +1,13 @@
 ﻿
 using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Infrastructure;
 
-public class ApplicationContext : DbContext
+public class ApplicationContext : IdentityDbContext
 {
     public ApplicationContext(DbContextOptions<ApplicationContext> options)
                                 : base(options) {}
