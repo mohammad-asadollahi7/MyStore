@@ -27,20 +27,38 @@ public class AccountController : Controller
 
 
     [HttpPost]
-
     public async Task<IActionResult> RegisterAsync(RegisterDto model)
     {
         if (ModelState.IsValid)
         {
             var result = await _accountService.RegisterAsync(model);
-            if(!result.Succeeded)
+            if (!result.Succeeded)
             {
-                ModelState.AddModelError("", "Registration failed"); 
+                ModelState.AddModelError("", "Registration failed");
                 return View();
             }
             return RedirectToAction(nameof(Index), nameof(Product));
         }
         return View(nameof(Register), model);
+    }
+
+    [HttpGet]
+    public IActionResult Login()
+    {
+        return View();
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> LoginAsync(LoginDto loginDto)
+    {
+        if (ModelState.IsValid)
+        {
+            await _accountService.LoginAsync(loginDto);
+            return RedirectToAction(nameof(Index), nameof(Product));
+        }
+
+        return View(nameof(Login));
     }
 }
 
