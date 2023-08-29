@@ -50,11 +50,15 @@ public class AccountController : Controller
 
 
     [HttpPost]
-    public async Task<IActionResult> LoginAsync(LoginDto loginDto)
+    public async Task<IActionResult> LoginAsync(LoginDto loginDto,[FromQuery] string? ReturnUrl)
     {
         if (ModelState.IsValid)
         {
             await _accountService.LoginAsync(loginDto);
+            if(ReturnUrl != null && Url.IsLocalUrl(ReturnUrl))
+            {
+                return Redirect(ReturnUrl);
+            }
             return RedirectToAction(nameof(Index), nameof(Product));
         }
 

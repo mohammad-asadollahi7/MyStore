@@ -1,6 +1,7 @@
 ﻿using Application.Dtos;
 using Application.IServices;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
@@ -17,11 +18,11 @@ public class CategoryController : Controller
 
     public IActionResult Index()
     {
-        var categories =_categoryService.GetAllWithProducts();
+        var categories = _categoryService.GetAllWithProducts();
         return View(categories);
     }
 
- 
+    [Authorize]
     public ActionResult Create()
     {
         return View();
@@ -30,6 +31,7 @@ public class CategoryController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+
     public IActionResult Create(CategoryDto categoryDto)
     {
         if (ModelState.IsValid)
@@ -43,16 +45,16 @@ public class CategoryController : Controller
     [HttpGet]
     public IActionResult Edit(int categoryId)
     {
-        var category =_categoryService.GetById(categoryId);
+        var category = _categoryService.GetById(categoryId);
         return View(category);
     }
 
-  
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Edit(Category category)
     {
-        if(ModelState.IsValid)
+        if (ModelState.IsValid)
         {
             _categoryService.Edit(category);
             return RedirectToAction(nameof(Index));
