@@ -1,7 +1,6 @@
 ﻿using Application.Dtos;
 using Application.Exceptions;
 using Application.IServices;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNetCore.Identity;
 
 namespace Application.Services;

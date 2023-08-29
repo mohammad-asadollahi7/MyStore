@@ -4,28 +4,33 @@ using Application.Extensions;
 using Application.IServices;
 using Domain.Entities;
 using Domain.IRepositories;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Application.Services;
 
 public class ProductService : IProductService
 {
     private readonly IProductRepository _productRepository;
+   
 
     public ProductService(IProductRepository productRepository)
     {
         _productRepository = productRepository;
     }
 
-    public void Create(ProductDto productDto)
+    public void Create(ProductDto productDto, string userId)
     {
         var product = new Product()
         {
             Name = productDto.Name,
             Price = productDto.Price,
-            ManufactureDate = productDto.ManufactureDate.DateConvertor(),   
+            ManufactureDate = productDto.ManufactureDate.DateConvertor(),
             CategoryId = productDto.CategoryId,
+            UserId = userId
         };
         _productRepository.Create(product);
+        
     }
 
     public IEnumerable<Product> GetProducts()

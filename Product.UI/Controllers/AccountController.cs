@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Product.UI.Controllers;
 
-public class AccountController : Controller
+public class AccountController : BaseController
 {
     private readonly IAccountService _accountService;
 
@@ -43,14 +43,14 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    public IActionResult Login()
+    public IActionResult Login(string? ReturnUrl = null)
     {
-        return View();
+        return View(model: ReturnUrl);
     }
 
 
     [HttpPost]
-    public async Task<IActionResult> LoginAsync(LoginDto loginDto,[FromQuery] string? ReturnUrl)
+    public async Task<IActionResult> LoginAsync(LoginDto loginDto, string? ReturnUrl)
     {
         if (ModelState.IsValid)
         {

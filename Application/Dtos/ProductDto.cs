@@ -20,4 +20,5 @@ public class ProductDto
     public string ManufactureDate { get; set; }
 
     public int CategoryId { get; set; }
+
 }

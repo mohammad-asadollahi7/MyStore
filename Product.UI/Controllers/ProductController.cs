@@ -9,13 +9,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Product.UI.Controllers;
 
-public class ProductController : Controller
+public class ProductController : BaseController
 {
     private readonly IProductService _productService;
+    private readonly IAccountService _accountService;
 
-    public ProductController(IProductService productService)
+    public ProductController(IProductService productService, IAccountService accountService)
     {
         _productService = productService;
+        _accountService = accountService;
     }
     public IActionResult Index()
     {
@@ -35,7 +37,8 @@ public class ProductController : Controller
     
     public IActionResult Create([FromForm] ProductDto productDto)
     {
-        _productService.Create(productDto);
+        var userId = base.CurrentUserID;
+        _productService.Create(productDto, userId);
         return RedirectToAction(nameof(Index));
     }
 

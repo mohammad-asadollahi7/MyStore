@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace Product.UI.Controllers;
 
-public class CategoryController : Controller
+public class CategoryController : BaseController
 {
     private readonly ICategoryService _categoryService;
     public CategoryController(ICategoryService categoryService)
@@ -31,7 +31,6 @@ public class CategoryController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-
     public IActionResult Create(CategoryDto categoryDto)
     {
         if (ModelState.IsValid)
