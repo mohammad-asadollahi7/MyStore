@@ -10,7 +10,8 @@ namespace Product.UI.Controllers
         {
             get
             {
-                return HttpContext.User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                return HttpContext.User.Claims
+                    .Where(c => c.Type == ClaimTypes.NameIdentifier)
                     .Select(i => i.Value).SingleOrDefault();
             }
         }
